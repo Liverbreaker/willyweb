@@ -2,34 +2,29 @@
 if ( session_status() == PHP_SESSION_NONE ){
 	session_start();
 }
-require_once( 'config.php' );
+require_once( '/conf/config.php' );
 ?>
 <html>
 
 <head>
 	<meta charset='UTF-8'>
 	<title>教室預借系統</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-	 crossorigin="anonymous">
-	<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-	 crossorigin="anonymous"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-	 crossorigin="anonymous"></script>
-	<link rel='stylesheet' href='css/navbar.css'>
-	<script type='text/javascript' src='js/main.js'></script>
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
+	<link rel='stylesheet' href='/css/font-awesome.min.css'>
+	<link rel='stylesheet' href='/css/navbar.css'>
+	<script src="/js/jquery.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+	<script src='/js/main.js'></script>
 
 </head>
 
 <body>
 	<?php include('navbar.php'); ?>
 	<div class='container'>
-		<div name='searchlist' style='margin-top: 10px' class='form-row'>
+		<div id='searchlist' name='searchlist' style='margin-top: 10px' class='form-row'>
 			<div class='form-group col-md-2'>
 				<select class='form-control' id='building'>
 					<option>請選擇教學樓</option>
-					<?php include('queryGet_building.php'); ?>
 				</select>
 			</div>
 			<div class='form-group col-md-2'>

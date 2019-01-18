@@ -2,7 +2,7 @@
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
-require_once('config.php');
+require_once('/conf/config.php');
 $username = $nickname = $email = $password = $confirm_password = null;
 $username_err = $nickname_err = $email_err = $password_err = $confirm_password_err = null;
 
@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty(trim($_POST["username"]))) {
         $username_err = "&nbsp;&nbsp;&nbsp;請輸入帳號";
     } else {
-        $sql = "SELECT username FROM users WHERE username = :username";
+        $sql = "SELECT username FROM willyschool.users WHERE username = :username";
         if ($stmt = $pdo->prepare($sql)) {
             $stmt->bindParam(':username', $param_username, PDO::PARAM_STR);
             $param_username = trim($_POST["username"]);
@@ -50,14 +50,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check input errors before inserting in database
     if (empty($username_err) && empty($password_err) && empty($confirm_password_err) && empty($nickname_err) && empty($email_err)) {
         // Prepare an insert statement
-        $sql = "INSERT INTO users (id, username, password, nickname, email, permission) VALUES (NULL, :username, :password, :nickname, :email, 'teacher')";
+        $sql = "INSERT INTO willyschool.users (id, username, password, nickname, email, permission) VALUES (NULL, :username, :password, :nickname, :email, :permission)";
         if ($stmt = $pdo->prepare($sql)) {
             // Bind variables to the prepared statement as parameters
             $stmt->bindParam(':username', $param_username, PDO::PARAM_STR);
             $stmt->bindParam(':password', $param_password, PDO::PARAM_STR);
             $stmt->bindParam(':nickname', $nickname, PDO::PARAM_STR);
             $stmt->bindParam(':email', $email, PDO::PARAM_STR);
-            //$stmt->bindParam(':permission', $param_permission, PDO::PARAM_STR);
+            $stmt->bindParam(':permission', 'teacher');
             // Set parameters
             $param_username = $username;
             $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
@@ -69,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     alert('註冊成功,請登入');
                     window.open('/index.php', '_self')
                     </script>";
-                exit();
+              exit();
 
             } else {
                 echo '<script language="javascript">';
@@ -87,7 +87,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 <html>
 <head>
-	<link rel="stylesheet" href="css/rejister.css">
+	<link rel="stylesheet" href="/css/register.css">
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
 </head>
 <body>
 <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">

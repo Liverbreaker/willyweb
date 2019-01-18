@@ -2,17 +2,24 @@
 
 $(document).ready(function () {
 	'use strict';
-	$('#doLogin').click(function () {
-		$('#container').empty();
-		$('#container').load('login1.php');
-	});
+	// $(selector).get(url,data,success(response,status,xhr),dataType)
 
+
+	function getBuildings(){
+		$.get("./queryGet.php", {get: 'buildings'},
+		function(response){
+			if (response){ $('#building').append(response);}
+		});
+	};
+	getBuildings();
+	
 	function getClassroom() {
 		var building = $('#building option:selected').val();
 		$.ajax({
 			type: 'GET',
-			url: 'queryGet_classroom.php',
+			url: 'queryGet.php',
 			data: {
+				get: 'classroom',
 				building: building
 			},
 			success: function (result) {
