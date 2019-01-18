@@ -12,6 +12,7 @@ $(document).ready(function () {
 		});
 	};
 	getBuildings();
+<<<<<<< HEAD
 
 	$('#calendar').fullCalendar({
 		schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
@@ -43,6 +44,8 @@ $(document).ready(function () {
 		
 		
 	});
+=======
+>>>>>>> parent of 7b4d47a... 0.1
 	
 	function getClassroom() {
 		var building = $('#building option:selected').val();
