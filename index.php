@@ -13,6 +13,7 @@ require_once( '/conf/config.php' );
 	<link rel='stylesheet' href='/css/font-awesome.min.css'>
 	<link rel='stylesheet' href='/css/navbar.css'>
 <<<<<<< HEAD
+<<<<<<< HEAD
 	<link rel='stylesheet' href='/css/cal/fullcalendar.css' />
 	<link rel='stylesheet' href='/css/cal/scheduler.css' />
 	
@@ -22,6 +23,11 @@ require_once( '/conf/config.php' );
 	<script src='/js/cal/moment.min.js'></script>
 	<script src='/js/cal/fullcalendar.js'></script>
 	<script src='/js/cal/scheduler.js'></script>
+=======
+	<script src="/js/jquery.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+	<script src='/js/main.js'></script>
+>>>>>>> parent of 7b4d47a... 0.1
 =======
 	<script src="/js/jquery.min.js"></script>
 	<script src="/js/bootstrap.min.js"></script>
@@ -44,6 +50,7 @@ require_once( '/conf/config.php' );
 					<option>請選擇教室</option>
 				</select>
 <<<<<<< HEAD
+<<<<<<< HEAD
 			<br>
 			</div>
 		</div>
@@ -51,6 +58,8 @@ require_once( '/conf/config.php' );
 
 		</div>
 =======
+=======
+>>>>>>> parent of 7b4d47a... 0.1
 			</div>
 			<div class='form-group col-md-1'>請選查詢期間:</div>
 			<div class='input-group col-md-5 input-date range'>
@@ -75,6 +84,9 @@ require_once( '/conf/config.php' );
 			</table>
 		</div>
 
+<<<<<<< HEAD
+>>>>>>> parent of 7b4d47a... 0.1
+=======
 >>>>>>> parent of 7b4d47a... 0.1
 	</div>
 </body>
