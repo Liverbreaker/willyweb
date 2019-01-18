@@ -33,7 +33,7 @@ function getBuildings()
             $result = $stmt->fetchAll();
             foreach ($result as $row) {
                 // echo "<option to='" . $row['ID'] . "'>" . $row['name'] . "</option>";
-                echo "123";
+                echo "<html><body>success tested sql: ".$sql."</body></html>";
             }
         };
     } catch (PDOException $e) {
