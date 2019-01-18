@@ -2,7 +2,7 @@
 if ( session_status() == PHP_SESSION_NONE ){
 	session_start();
 }
-// require_once( '/conf/config.php' );
+require_once( '/conf/config.php' );
 ?>
 <html>
 
@@ -12,14 +12,15 @@ if ( session_status() == PHP_SESSION_NONE ){
 	<link rel="stylesheet" href="/css/bootstrap.min.css">
 	<link rel='stylesheet' href='/css/font-awesome.min.css'>
 	<link rel='stylesheet' href='/css/navbar.css'>
+	<link rel='stylesheet' href='/css/cal/fullcalendar.css' />
+	<link rel='stylesheet' href='/css/cal/scheduler.css' />
+	
 	<script src="/js/jquery.min.js"></script>
 	<script src="/js/bootstrap.min.js"></script>
 	<script src='/js/main.js'></script>
-	<link rel='stylesheet' href='css/fullcalendar.css' />
-	<link rel='stylesheet' href='css/scheduler.css' />
-<script src='js/moment.min.js'></script>
-<script src='js/fullcalendar.js'></script>
-<script src='js/scheduler.js'></script>
+	<script src='/js/cal/moment.min.js'></script>
+	<script src='/js/cal/fullcalendar.js'></script>
+	<script src='/js/cal/scheduler.js'></script>
 
 </head>
 
