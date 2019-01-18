@@ -12,6 +12,37 @@ $(document).ready(function () {
 		});
 	};
 	getBuildings();
+
+	$('#calendar').fullCalendar({
+		schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
+		defaultView: 'agendaFourDay',
+    groupByResource: true,
+    header: {
+      left: 'prev,next',
+      center: 'title',
+      right: 'agendaDay,agendaWeek'
+    },
+    views: {
+      agendaFourDay: {
+        type: 'agenda',
+        duration: { days: 7 }
+      }
+    },
+    resources: [
+      { id: 'a', title: 'Room A' }
+    ],
+    events:[
+		{
+			id: '1',
+      		resourceId: 'a',
+			title: 'Meeting',
+			start: '2019-01-20T10:30:00',
+			end: '2019-01-20T12:30:00',
+		  },
+	  ],
+		
+		
+	});
 	
 	function getClassroom() {
 		var building = $('#building option:selected').val();
