@@ -1,4 +1,5 @@
 <?php
+global $pdo;
 class MyPDO extends PDO
 {
     public function __construct($file = 'db.ini')
@@ -14,9 +15,9 @@ class MyPDO extends PDO
     }
 }
 try{
-  $pdo = new MyPDO();
-  $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $pdo = new MyPDO();
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch(PDOException $e){
-  die("ERROR: Could not connect. ". $e->getMessage());
+    die("ERROR: Could not connect. ". $e->getMessage());
 }
 ?>

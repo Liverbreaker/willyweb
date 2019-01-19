@@ -26,6 +26,7 @@ if ($_GET['get'] == 'buildings') {
 } else if ($_GET['get'] == 'classroom') {
     getClassroom($pdo);
 } else if ($_GET['get'] == 'record') {
+    // echo "hi";
     getRecord($pdo);
 } else if ($_GET['get'] == ''){
 
@@ -38,7 +39,7 @@ if ($_GET['get'] == 'buildings') {
 } else if ($_GET['get'] == ''){
 
 }
-
+// $sql = "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_SCHEMA='willyschool';";
 
 
 if ( isset($_POST['sql']) ) {
@@ -98,23 +99,50 @@ function getClassroom(&$pdo)
 // get record
 function getRecord(&$pdo) // initial function looks this way
 {
-    // $sql = "SELECT * FROM `willyschool`.`reserverecord` WHERE (`buildingID` = :building and `classroomID` = :classroom) and (`start` between :time_start and :time_end)";
-    $sql = "SELECT * FROM `willyschool`.`record`"; // test
-    try{
-        $stmt = $pdo->prepare($sql);
-        // $stmt->execute(['building' => $_GET['building'], 'classroom' => $_GET['classroom'], 'time_start' => $_GET['time_start'], 'time_end' => $_GET['time_end']]);
-        $stmt->execute();
-        if ($row = $stmt->fetchAll()) {
-            foreach($row as $row){
-                echo $row['id'] . "<br>";
-                // echo "<tr>";
-                // echo "<td>".$row['start']."</td><td>".$row['end']."</td><td>".$row['userID']."</td><td>".$row['buildingID']."</td><td>".$row['classroomID']."</td>";
-                // echo "</tr>";
+    if ($_GET['WithUserID'] == 'true' ) {
+        if (isset($_GET['building'])) {
+            if (isset($_GET['classroom'])) {
+                $sql = "SELECT id, DATE_FORMAT(start, '%Y-%m-%dT%T') AS `start`, DATE_FORMAT(end, '%Y-%m-%dT%T') AS `end`, userID, CONCAT(buildingID, '', classroomID) AS title FROM `willyschool`.`reserve` WHERE buildingID = :building and classroomID = :classroom and userID = :userID ";
+                $stmt = $pdo->prepare($sql);
+                $stmt->bindParam(':building', $_GET['building'], PDO::PARAM_STR);
+                $stmt->bindParam(':classroom', $_GET['classroom'], PDO::PARAM_STR);
+                $stmt->bindParam(':userID', $_SESSION['username'], PDO::PARAM_STR);
+            } else {
+                $sql = "SELECT id, DATE_FORMAT(start, '%Y-%m-%dT%T') AS `start`, DATE_FORMAT(end, '%Y-%m-%dT%T') AS `end`, userID, CONCAT(buildingID, '', classroomID) AS title FROM `willyschool`.`reserve` WHERE buildingID = :building and userID = :userID ";
+                $stmt = $pdo->prepare($sql);
+                $stmt->bindParam(':building', $_GET['building'], PDO::PARAM_STR);
+                $stmt->bindParam(':userID', $_SESSION['username'], PDO::PARAM_STR);
             }
+        } else {
+            $sql = "SELECT id, DATE_FORMAT(start, '%Y-%m-%dT%T') AS `start`, DATE_FORMAT(end, '%Y-%m-%dT%T') AS `end`, userID, CONCAT(buildingID, '', classroomID) AS title  FROM `willyschool`.`reserve` WHERE userID = :userID ";
+            $stmt = $pdo->prepare($sql);
+            $stmt->bindParam(':userID', $_SESSION['username'], PDO::PARAM_STR);
+        }
+    } else {
+        if (isset($_GET['building'])) {
+            if (isset($_GET['classroom'])) {
+                $sql = "SELECT id, DATE_FORMAT(start, '%Y-%m-%dT%T') AS start, DATE_FORMAT(end, '%Y-%m-%dT%T') AS end, userID AS title, CONCAT(buildingID, '', classroomID) AS resourceId FROM `willyschool`.`reserve` WHERE buildingID = :building and classroomID = :classroom ";
+                $stmt = $pdo->prepare($sql);
+                $stmt->bindParam(':building', $_GET['building'], PDO::PARAM_STR);
+                $stmt->bindParam(':classroom', $_GET['classroom'], PDO::PARAM_STR);
+            } else {
+                $sql = "SELECT id, DATE_FORMAT(start, '%Y-%m-%dT%T') AS start, DATE_FORMAT(end, '%Y-%m-%dT%T') AS end, userID AS title, CONCAT(buildingID, '', classroomID) AS resourceId FROM `willyschool`.`reserve` WHERE buildingID = :building ";
+                $stmt = $pdo->prepare($sql);
+                $stmt->bindParam(':building', $_GET['building'], PDO::PARAM_STR);
+            }
+        } else {
+            $sql = "SELECT id, DATE_FORMAT(start, '%Y-%m-%dT%T') AS start, DATE_FORMAT(end, '%Y-%m-%dT%T') AS end, userID AS title, CONCAT(buildingID, '', classroomID) AS resourceId FROM `willyschool`.`reserve` ";
+            $stmt = $pdo->prepare($sql);
+        }
+    }
+
+    try{
+        $stmt->execute();
+        // $stmt->debugDumpParams();
+        if ($result = $stmt->fetchAll()) {
+            echo json_encode( $result );
         }
     } catch (PDOEXception $e) {
-        echo $sql . "<br>";
-        echo $_GET['building'] . "<br>" . $_GET['classroom'] . "<br>" . $_GET['time_start']. "<br>" . $_GET['time_end'] . "<br>" ;
         echo "Error:" . $e->getMessage();
     }
     unset($row);
