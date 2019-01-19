@@ -2,30 +2,32 @@
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
-require_once 'config.php';
-
+require_once '/conf/config.php';
+if(!isset($_SESSION['username'])){
+	header("location: redirect.php?to=0");
+	exit();
+}
 ?>
 <html>
-
 <head>
     <meta charset='UTF-8'>
-    <title>學期期間管理工具</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-        crossorigin="anonymous">
-    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
-    <link rel='stylesheet' href='css/navbar.css'>
-    <script type='text/javascript' src='js/main.js'></script>
+    <title>學期期間管理</title>
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
+	<link rel='stylesheet' href='/css/font-awesome.min.css'>
+	<link rel='stylesheet' href='/css/navbar.css'>
+    <link rel='stylesheet' href='/css/modal.css' />
+    <link rel='stylesheet' href='/css/datepicker/bootstrap-datepicker.min.css' />
+	<script src="/js/jquery.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+    <script src="/js/bootstrap-datepicker.min.js"></script>
+	<script src='/js/main.js'></script>
 </head>
-
 <body>
     <?php include 'navbar.php';?>
-    <div name="record">
-        <div><a href="/newsemester.php">增加新學期</a></div>
+    <div name="record" class='container'>
+        <div>
+            <button class='btn btn-danger' id='modal1'>新增新學期區間</button>
+        </div>
         <table class='table table-hover'>
             <thead>
                 <th>No.</th>
@@ -46,20 +48,38 @@ try {
             } else {
                 $perm = "<option value='teacher' selected>教師</option><option value='admin'>管理者</option>";
             }
-            echo "<tr>";
-            echo "<td>" . $row['id'] . "</td><td>" . $row['semesterName'] . "</td><td>" . $row['startDate'] . "</td><td>" . $row['endDate'] . "</td><td id='" . $row['id'] . "'><button type='button' class='btn btn-danger' name='deleteSemester' target='" . $row['id'] . "'>刪除</button></td>";
-            echo "</tr>";
+            $myecho = "<tr>
+                        <td>:id</td>
+                        <td>:semesterName</td>
+                        <td>:startDate</td>
+                        <td>:endDate</td>
+                        <td id=':id'>
+                            <button type='button' class='btn btn-danger' target=':id' to=':semesterName' id='deleteSemester_:semesterName'>刪除</button>
+                        </td>
+                    </tr>";
+            $myecho = str_replace(':id',$row['id'], $myecho);
+            $myecho = str_replace(':semesterName',$row['semesterName'], $myecho);
+            $myecho = str_replace(':startDate',$row['startDate'], $myecho);
+            $myecho = str_replace(':endDate',$row['endDate'], $myecho);
+            echo $myecho;
         }
-    } else {
-        echo "";
     }
-    ;
 } catch (PDOEXception $e) {
     echo "Error:" . $e->getMessage();
 }
 ?>
             </tbody>
         </table>
+    </div>
+    <div id="SemesterModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span id='closeModal' class="close">&times;</span>
+                <h2></h2>
+                <p></p>
+            </div>
+            <div class="modal-body"></div>
+        </div>
     </div>
 </body>
 

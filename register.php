@@ -50,14 +50,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check input errors before inserting in database
     if (empty($username_err) && empty($password_err) && empty($confirm_password_err) && empty($nickname_err) && empty($email_err)) {
         // Prepare an insert statement
-        $sql = "INSERT INTO willyschool.users (id, username, password, nickname, email, permission) VALUES (NULL, :username, :password, :nickname, :email, :permission)";
+        $sql = "INSERT INTO `willyschool`.`users` (`id`, `username`, `password`, `nickname`, `email`, `permission`) VALUES (NULL, :username, :password, :nickname, :email, 'teacher')";
         if ($stmt = $pdo->prepare($sql)) {
             // Bind variables to the prepared statement as parameters
             $stmt->bindParam(':username', $param_username, PDO::PARAM_STR);
             $stmt->bindParam(':password', $param_password, PDO::PARAM_STR);
             $stmt->bindParam(':nickname', $nickname, PDO::PARAM_STR);
             $stmt->bindParam(':email', $email, PDO::PARAM_STR);
-            $stmt->bindParam(':permission', 'teacher');
+            
             // Set parameters
             $param_username = $username;
             $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
@@ -70,7 +70,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     window.open('/index.php', '_self')
                     </script>";
               exit();
-
             } else {
                 echo '<script language="javascript">';
                 echo 'alert("錯誤![註冊-指令錯誤102]");';
@@ -83,7 +82,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Close connection
     unset($pdo);
 }
-
 ?>
 <html>
 <head>
