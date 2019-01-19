@@ -3,7 +3,7 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 require_once '/conf/config.php';
-if(!isset($_SESSION['username'])){
+if(!isset($_SESSION['username']) || ($_SESSION['permission'] !== 'admin')){
 	header("location: redirect.php?to=0");
 	exit();
 }

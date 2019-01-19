@@ -3,7 +3,7 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 require_once '/conf/config.php';
-if(!isset($_SESSION['username'])){
+if(!isset($_SESSION['username']) || ($_SESSION['permission'] !== 'admin')){
 	header("location: redirect.php?to=0");
 	exit();
 }
@@ -16,10 +16,8 @@ if(!isset($_SESSION['username'])){
 	<link rel='stylesheet' href='/css/font-awesome.min.css'>
 	<link rel='stylesheet' href='/css/navbar.css'>
     <link rel='stylesheet' href='/css/modal.css' />
-    <link rel='stylesheet' href='/css/datepicker/bootstrap-datepicker.min.css' />
 	<script src="/js/jquery.min.js"></script>
 	<script src="/js/bootstrap.min.js"></script>
-    <script src="/js/bootstrap-datepicker.min.js"></script>
 	<script src='/js/main.js'></script>
 </head>
 <body>

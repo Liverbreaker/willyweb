@@ -22,22 +22,19 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] == "POST" ) {
 						$_SESSION[ 'nickname' ] = $row[ 'nickname' ];
 						echo "<script language='javascript'>
 							alert('註冊成功,請登入');
-							window.open('/index.php', '_self')
 							</script>";
 						header("location: redirect.php?to=0"); // success
 					} else {
 						echo "<script language='javascript'>
 							alert('登入失敗，請重試 \n login failed, please try again.');
-							window.open('/index.php', '_self')
 							</script>";
-						
 					}
 				}
 			} else {
 				echo "no user";
 			}
 		} else {
-			echo "error";
+			echo "指令錯誤[login_com.php]";
 		}
 	}
 	unset( $username );

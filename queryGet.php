@@ -31,14 +31,11 @@ if ($_GET['get'] == 'buildings') {
     getSemester($pdo);
 } 
 // $sql = "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_SCHEMA='willyschool';";
-
-
 if ( isset($_POST['sql']) ) {
     $sql = $_POST['sql'];
 } else if (isset ($_GET['sql'] ) ) {
     $sql = $_GET['sql'];
 }
-
 // get building list
 function getBuildings(&$pdo)
 {
@@ -57,7 +54,6 @@ function getBuildings(&$pdo)
     }
     unset($this);
 }
-
 // get classroom list
 function getClassroom(&$pdo)
 {
@@ -157,9 +153,7 @@ function getRecord(&$pdo) // initial function looks this way
                     ;
             $stmt = $pdo->prepare($sql);
         }
-
     }
-
     try{
         // $stmt->bindParam(':start', $_GET['start'], PDO::PARAM_STR);
         // $stmt->bindParam(':end', $_GET['end'], PDO::PARAM_STR);
@@ -206,14 +200,12 @@ function getName(&$pdo) // initial function looks this way
             foreach ($result as $row) {
                 echo "<option value='" . $row['ID'] . "'>" . $row['name'] . "</option>";
             }
-        }
-        ;
+        };
     } catch (PDOException $e) {
         echo "Error:" . $e->getMessage();
     }
     unset($this);
 }
 //////////////////////
-
 
 ?>
