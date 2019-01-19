@@ -65,7 +65,7 @@ $(document).ready(function () {
 			editable: true,
 			navLinks: true, // can click day/week names to navigate views
 			nowIndicator: true, // indicates now
-			
+			height: 'auto',
 			header: {
 			  left: 'prev,today,next',
 			  center: 'title',
