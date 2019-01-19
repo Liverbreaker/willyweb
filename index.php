@@ -17,12 +17,10 @@ require_once( '/conf/config.php' );
 	
 	<script src="/js/jquery.min.js"></script>
 	<script src="/js/bootstrap.min.js"></script>
-	<script src='/js/main.js'></script>
 	<script src='/js/cal/moment.min.js'></script>
 	<script src='/js/cal/fullcalendar.js'></script>
 	<script src='/js/cal/scheduler.js'></script>
-
-</head>
+	<script src='/js/main.js'></script>
 
 <body>
 	<?php include('navbar.php'); ?>
@@ -40,9 +38,7 @@ require_once( '/conf/config.php' );
 			<br>
 			</div>
 		</div>
-		<div id='calendar'>
-
-		</div>
+		<div id='calendar-init' class='cal'></div>
 	</div>
 </body>
 
